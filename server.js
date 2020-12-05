@@ -5,6 +5,8 @@ const passport=require('passport');
 const path=require('path');
 const users=require('./routes/users');
 const morgan = require('morgan');
+const questionRouter = require('./routes/question');
+const answerRouter = require('./routes/answer');
 
 
 const app=express();
@@ -30,6 +32,9 @@ mongoose
 
 //use routes
 app.use('/api/users',users);
+app.use('/api/question',questionRouter)
+app.use('/api/answer',answerRouter)
+
 
 if(process.env.NODE_ENV==='production'){
   app.use(express.static("client/build"));

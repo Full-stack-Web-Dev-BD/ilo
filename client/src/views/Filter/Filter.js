@@ -4,19 +4,22 @@ import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutlined';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbsUpDownOutlinedIcon from '@material-ui/icons/ThumbsUpDownOutlined';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import ThumbsUpDownOutlinedIcon from '@material-ui/icons/ThumbsUpDownOutlined';
 import Axios from 'axios';
-const Home = ({ auth }) => {
+
+import qs from 'query-string'
+
+const Filter = ({ auth }) => {
     const [question, setQuestion] = useState([])
     useEffect(() => {
         getAll()
     }, [])
 
     const getAll = () => {
-
-        Axios.get('/api/question/all-question')
+        let keyName=qs.parse(window.location.search).space
+        Axios.post('/api/question/filter',{space:keyName})
             .then(res => {
                 setQuestion(res.data)
             })
@@ -36,6 +39,7 @@ const Home = ({ auth }) => {
 
     return (
         <div className="col-md-10 offset-md-1">
+  
             {
                 auth.isAuthenticated ?
                     <div className="text-right mt-5">
@@ -43,6 +47,11 @@ const Home = ({ auth }) => {
                             <Button variant="contained" color="secondary" > Ask a question </Button>
                         </Link>
                     </div> : ''
+            }
+                      {
+                question.length<1?
+                <h3 className="text-danger text-center" > Not Found </h3>
+                :''
             }
             {
                 question.map(el => (
@@ -90,7 +99,7 @@ const Home = ({ auth }) => {
 const mapStateToProps = state => ({
     auth: state.auth
 });
-export default connect(mapStateToProps, null)(Home)
+export default connect(mapStateToProps, null)(Filter)
 
 
 

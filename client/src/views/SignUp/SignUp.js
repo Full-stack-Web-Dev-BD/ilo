@@ -278,7 +278,7 @@ const SignUp = props => {
                   Have an account? <br></br>
                   <Link
                     component={RouterLink}
-                    to="/"
+                    to="/login"
                     variant="h6"
                   >
                     <Button variant="outlined" color="secondary">Login</Button>

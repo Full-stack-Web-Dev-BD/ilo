@@ -149,7 +149,7 @@ const Login = props => {
       .then(res => {
         const { token } = res.data;
         localStorage.setItem('jwtToken', token);
-        window.location.href='/home'
+        window.location.href='/'
       })
       .catch(err =>{
         setError(err.response.data)

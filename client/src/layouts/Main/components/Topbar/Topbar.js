@@ -25,17 +25,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Topbar = props => {
-  const { className, logoutUser, onSidebarOpen, ...rest } = props;
+  const { className, auth, logoutUser, onSidebarOpen, ...rest } = props;
 
   const classes = useStyles();
-
-  const [notifications] = useState([]);
-
-  const user = {
-    name: 'Shen Zhi',
-    avatar: '/images/avatars/avatar_11.png',
-    bio: 'Brain Director'
-  };
+const [space, setSpace] = useState('')
 
   const onLogoutClick = (e) => {
     e.preventDefault();
@@ -46,6 +39,10 @@ const Topbar = props => {
     window.location.href = "/"
   }
 
+  const selectSpace=(e)=>{
+    e.preventDefault()
+    window.location.href=`/filter?space=${e.target.value}`
+  }
   return (
     <AppBar
       {...rest}
@@ -61,15 +58,21 @@ const Topbar = props => {
           </IconButton>
         </Hidden>
         {/* logo placement */}
-        <RouterLink to="/home" style={{ color: 'white' }}> <Button color="primary"> <span style={{ color: 'white' }}> Home</span></Button> </RouterLink>
+        <RouterLink to="/" style={{ color: 'white' }}> <Button color="primary"> <span style={{ color: 'white' }}> Home</span></Button> </RouterLink>
         <RouterLink to="/hot" style={{ color: 'white' }}> <Button color="primary"> <span style={{ color: 'white' }}> Hot</span></Button> </RouterLink>
-        <input />
+        <select onChange={e => selectSpace(e)}>
+          <option>Filter By Selecting Space</option>
+          <option value="Algorithm">Algorithm</option>
+          <option value="Machine Learning">Machine Learning</option>
+          <option value="System">System</option>
+          <option value="Javascript">Javascript</option>
+        </select>
         <div className={classes.flexGrow} />
         {
-          props.auth.user ?
-            <Hidden mdDown><Button variant="contained" color="secondary" onClick={e=>{logout()}}>Log Out</Button></Hidden> :
+          auth.isAuthenticated ?
+            <Hidden mdDown><Button variant="contained" color="secondary" onClick={e => { logout() }}>Log Out</Button></Hidden> :
             <Hidden mdDown>
-              <RouterLink to="/" style={{ color: 'white' }}> <Button color="primary"> <span style={{ color: 'white' }}> Login</span></Button></RouterLink>
+              <RouterLink to="/login" style={{ color: 'white' }}> <Button color="primary"> <span style={{ color: 'white' }}> Login</span></Button></RouterLink>
               <RouterLink to="/sign-up" style={{ color: 'white' }}> <Button color="primary"> <span style={{ color: 'white' }}> Register</span></Button> </RouterLink>
             </Hidden>
         }

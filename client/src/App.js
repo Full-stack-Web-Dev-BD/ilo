@@ -26,6 +26,11 @@ import { RouteWithLayout } from './components';
 import Login from 'views/Login/Login';
 import Home from 'views/Home/Home'
 import Details from 'views/details/Details';
+import PostQuestion from 'views/PostQuestion/PostQuestion';
+import Axios from 'axios';
+import EditQuestion from 'views/EditQuestion/EditQuestion';
+import Hot from 'views/Hot/Hot';
+import Filter from 'views/Filter/Filter';
 
 const browserHistory = createBrowserHistory();
 
@@ -46,14 +51,7 @@ if (localStorage.jwtToken) {
   // Set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
 
-  // Check for expired token
-  const currentTime = Date.now() / 1000;
-  if (decoded.exp < currentTime) {
-    // Logout user
-    store.dispatch(logoutUser());
-    // Redirect to login
-    window.location.href = '/';
-  }
+
 }
 
 
@@ -76,14 +74,14 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <Router history={browserHistory}>
-          <Route exact path="/" component={Login} />
+          <Route exact path="/login" component={Login} />
           <Route exact path="/sign-up" component={SignUpView} />
           <Switch>
             <RouteWithLayout
               component={Home}
               exact
               layout={MainLayout}
-              path="/home"
+              path="/"
             />
           </Switch> 
            <Switch>
@@ -92,6 +90,38 @@ const App = () => {
               exact
               layout={MainLayout}
               path="/details"
+            />
+          </Switch>
+           <Switch>
+            <RouteWithLayout
+              component={PostQuestion}
+              exact
+              layout={MainLayout}
+              path="/ask"
+            />
+          </Switch>
+           <Switch>
+            <RouteWithLayout
+              component={EditQuestion}
+              exact
+              layout={MainLayout}
+              path="/edit"
+            />
+          </Switch>
+           <Switch>
+            <RouteWithLayout
+              component={Hot}
+              exact
+              layout={MainLayout}
+              path="/hot"
+            />
+          </Switch>
+           <Switch>
+            <RouteWithLayout
+              component={Filter}
+              exact
+              layout={MainLayout}
+              path="/filter"
             />
           </Switch>
         </Router>

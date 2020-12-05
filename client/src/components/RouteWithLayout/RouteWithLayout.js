@@ -10,12 +10,9 @@ const RouteWithLayout = props => {
     <Route
       {...rest}
       render={matchProps => (
-        auth.isAuthenticated === true ? (
-          <Layout>
-            <Component {...matchProps} />
-          </Layout>
-        ):
-        <Redirect to="/" />
+        <Layout>
+        <Component {...matchProps} />
+      </Layout>
       )}
     />
   );

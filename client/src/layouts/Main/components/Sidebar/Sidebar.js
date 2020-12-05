@@ -3,16 +3,8 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { Drawer } from '@material-ui/core';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import FeedbackIcon from '@material-ui/icons/Feedback';
-import UpdateIcon from '@material-ui/icons/Update';
 import { SidebarNav } from './components';
 import { connect } from 'react-redux';
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
-import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
-import HomeIcon from '@material-ui/icons/Home';
-
 const useStyles = makeStyles(theme => ({
   drawer: {
     width: 240,
@@ -45,7 +37,7 @@ const Sidebar = props => {
   const pages = [
     {
       title: 'Algorithm ',
-      href: '/home',
+      href: '/',
     },
     {
       title: 'Machine Learning  ',

@@ -2,13 +2,14 @@ import { Button, Card, CardContent, Chip, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutlined';
+import PermIdentityOutlinedIcon from '@material-ui/icons/PermIdentityOutlined';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbsUpDownOutlinedIcon from '@material-ui/icons/ThumbsUpDownOutlined';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import ThumbsUpDownOutlinedIcon from '@material-ui/icons/ThumbsUpDownOutlined';
 import Axios from 'axios';
-const Home = ({ auth }) => {
+const Hot = ({ auth }) => {
     const [question, setQuestion] = useState([])
     useEffect(() => {
         getAll()
@@ -16,7 +17,7 @@ const Home = ({ auth }) => {
 
     const getAll = () => {
 
-        Axios.get('/api/question/all-question')
+        Axios.get('/api/question/sort')
             .then(res => {
                 setQuestion(res.data)
             })
@@ -90,7 +91,7 @@ const Home = ({ auth }) => {
 const mapStateToProps = state => ({
     auth: state.auth
 });
-export default connect(mapStateToProps, null)(Home)
+export default connect(mapStateToProps, null)(Hot)
 
 
 
